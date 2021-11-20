@@ -1,17 +1,37 @@
 
 import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Item from '../Item/Item';
-import productos from '../../data/productos'
-const ItemListContainer = ({ greeting }) => {
+import { useEffect, useState } from 'react'
+import { getProducts } from '../../helpers/getProducts';
+import { useParams } from 'react-router-dom'
+import ItemList from '../ItemList/ItemList';
+
+
+const ItemListContainer = () => {
+  const [products, setProducts] = useState([])
+  const [loading, setLoading] = useState(true)
+  const { category } = useParams();
+
+  useEffect(() => {
+    getProducts // trabajando con las respuestas de la promesa
+      .then(data => {
+        category ? setProducts(data.filter(prod => prod.category === category)) : setProducts(data)//filtro para el ruteo
+      })
+      .catch(err => console.log(err))
+      .finally(() => setLoading(false))
+  }, [category])
+
+
   return (
+
     <Container>
-      <Row className=' py-3'>
-        <h1 className='display-4 py-1 text-center'>{greeting}</h1>
-        {productos.map((prod) =>
-          <Item key={prod.id} title={prod.title} price={prod.price} category={prod.category} imgUrl={prod.url} />
-        )}
-      </Row>
+      {loading ?
+        <div className="d-flex align-items-center">
+          <h2>Cargando productos...</h2>
+          <div className="spinner-border ms-auto" role="status" aria-hidden="true"></div>
+        </div>
+        :
+        <ItemList products={products} />
+      }
     </Container>
   )
 }

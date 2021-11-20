@@ -5,7 +5,7 @@ import Col from 'react-bootstrap/Col'
 const Footer = () => {
     return (
 
-        <Container fluid className="bg-dark text-white py-3 text-center footer"  >
+        <Container fluid className="bg-dark text-white py-2 text-center footer"  >
             <Row>
                 <Col className="mb-2">
                     &copy; Lucas Saavedra - Desarrollo Web
