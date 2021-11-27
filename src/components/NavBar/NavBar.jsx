@@ -1,25 +1,35 @@
 
 import CartWigdet from '../CartWidget/CartWidget';
 import Navbar from 'react-bootstrap/Navbar'
+import NavDropdown from 'react-bootstrap/NavDropdown'
 import Container from 'react-bootstrap/Container'
 import Nav from 'react-bootstrap/Nav'
-import { NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom/'
+import CategoryListContainer from '../CategoryListContainer/CategoryListContainer';
+import './NavBar.css'
 
 export const NavBar = () => {
   return (
-    <Navbar bg="dark" variant="dark">
-      <Container>
-        <Nav className="me-auto">
+    <>
+      <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+        <Container>
           <Navbar.Brand>
             <NavLink className='navbar-brand' to='/'>MiTienda</NavLink>
           </Navbar.Brand>
-          <Nav.Link href="!#home">Inicio</Nav.Link>
-          <Nav.Link href="!#news">Novedades</Nav.Link>
-          <Nav.Link href="!#pricing">Precios</Nav.Link>
-        </Nav>
-        <CartWigdet />
-      </Container>
-    </Navbar >
+          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+          <Navbar.Collapse id="responsive-navbar-nav">
+            <Nav className="me-auto">
+              <NavLink className='nav-link' to='/'>Home</NavLink>
+              <CategoryListContainer />
+            </Nav>
+            <Nav>
+              <CartWigdet />
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+
+    </>
   )
 }
 

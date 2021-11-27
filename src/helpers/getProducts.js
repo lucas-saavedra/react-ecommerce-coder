@@ -6,7 +6,7 @@ const productos =
             "price": 3000,
             "category": "iluminacion",
             "color": "blanco",
-            "detail": "Lorem ipsum dolor sit amet consecteturLorem ipsum dolor sit amet consectetur",
+            "detail": "Lorem ipsum dolor sit amet consecteturLorem ipsum dolor sit amet consecteturLorem ipsum dolor sit amet consecteturLorem ipsum dolor sit amet consecteturLorem ipsum dolor sit amet consectetur",
             "url": "https://source.unsplash.com/pxoZSTdAzeU/800x600",
             "stock": 0
         },

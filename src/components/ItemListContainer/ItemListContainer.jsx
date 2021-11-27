@@ -6,6 +6,8 @@ import { useParams } from 'react-router-dom'
 import ItemList from '../ItemList/ItemList';
 
 
+
+
 const ItemListContainer = () => {
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
@@ -22,17 +24,22 @@ const ItemListContainer = () => {
 
 
   return (
+    <>
+      <Container>
+        {loading ? (
+          <div className="d-flex align-items-center">
+            <h2>Cargando productos...</h2>
+            <div className="spinner-border ms-auto" role="status" aria-hidden="true"></div>
+          </div>
+        ) : (
+          <>
+            <ItemList products={products} />
+          </>
 
-    <Container>
-      {loading ?
-        <div className="d-flex align-items-center">
-          <h2>Cargando productos...</h2>
-          <div className="spinner-border ms-auto" role="status" aria-hidden="true"></div>
-        </div>
-        :
-        <ItemList products={products} />
-      }
-    </Container>
+        )
+        }
+      </Container>
+    </>
   )
 }
 
