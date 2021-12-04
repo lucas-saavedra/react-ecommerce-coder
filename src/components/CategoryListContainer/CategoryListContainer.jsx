@@ -30,17 +30,15 @@ const CategoryListContainer = () => {
 
     return (
         <>
+
             <NavDropdown bg="dark" variant="dark" title="Categorias" id="collasible-nav-dropdown">
                 {
                     loading ? (
                         < NavDropdown.Item >Cargando...
-                        </NavDropdown.Item>) :
-
+                        </NavDropdown.Item >) :
                         (
                             categories.map((cat, id) =>
-                                <NavDropdown.Item>
-                                    <NavLink key={id} className='dropdown-item' style={{ textTransform: 'capitalize', padding: '0.3em' }} to={`/category/${cat}`}>{cat}</NavLink>
-                                </NavDropdown.Item>
+                                <NavDropdown.Item key={id} as={NavLink} className='dropdown-item' style={{ textTransform: 'capitalize' }} to={`/category/${cat}`}>{cat}</NavDropdown.Item>
                             )
                         )
                 }

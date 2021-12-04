@@ -1,9 +1,25 @@
 import React from 'react'
 import ItemCount from '../Item/ItemCount';
-import { onAddProd } from '../../helpers/onAddProd';
+import { useContext } from 'react';
+import { CartContext } from '../../context/CartContext';
+
 const ItemDetail = ({ item }) => {
     const { url, price, title, category, detail, color, stock } = item;
-
+    const [cart, setCart] = useContext(CartContext);
+    const addProductCart = (count) => {
+        let temp = {};
+        temp = cart;
+        if (cart.hasOwnProperty(item.id)) {
+            console.log(item.amount)
+            item.amount = temp[item.id].amount + count;
+        } else {
+            item.amount = count;
+        }
+        temp[item.id] = {
+            ...item
+        };
+        setCart(temp)
+    }
     return (
         <div className="row pt-3" >
             <div className="col-md-6 col-xs-2">
@@ -23,12 +39,11 @@ const ItemDetail = ({ item }) => {
                     </div>
 
                     <h3 className='display-6'>$ {price}</h3>
-
                     <div className="d-flex py-1 justify-content-start">
+
                         <ItemCount
                             stock={stock}
-                            initialValue={1}
-                            onAddProd={onAddProd}
+                            addProductCart={addProductCart}
                         />
                     </div>
                     <p className="">Disponible/s: {stock}</p>
