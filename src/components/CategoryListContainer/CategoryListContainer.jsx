@@ -1,36 +1,31 @@
 
 
 import { useEffect, useState } from 'react'
-import { getProducts } from '../../helpers/getProducts';
 import { NavLink } from 'react-router-dom/'
 import NavDropdown from 'react-bootstrap/NavDropdown'
+import getFirestore from '../../Firebase/firebase';
 
 const CategoryListContainer = () => {
     const [categories, setCategories] = useState([]);
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        getProducts
-            .then(data => {
-                const categoriesDuplicated = data.map(prod => prod.category);
-                const cat = categoriesDuplicated.filter((item, index) => {
-                    return categoriesDuplicated.indexOf(item) === index;
-                })
-                setCategories(cat)
-                console.log()
+        const db = getFirestore();
+        const categories = db.collection('categories');
+        categories
+            .get().then((querySnapshot) => {
+                if (querySnapshot.size === 0) {
+                    console.log('Vacio')
+                } else {
+                    setCategories(querySnapshot.docs.map(doc => doc.data().category));
+                }
             })
             .catch(err => console.log(err))
             .finally(() => setLoading(false))
-        return () => {
-
-        }
-    }, []);
-
-
+    }, [])
 
     return (
         <>
-
             <NavDropdown bg="dark" variant="dark" title="Categorias" id="collasible-nav-dropdown">
                 {
                     loading ? (

@@ -1,67 +1,83 @@
 import { useContext } from "react";
+import { NavLink } from "react-router-dom";
 import { CartContext } from "../../context/CartContext";
+import getFirestore from '../../Firebase/firebase';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/firestore';
+import CartList from "./CartList";
 
 const Cart = () => {
-    const [cart, setCart] = useContext(CartContext);
-    const removeItem = itemId => {
-        let tempCart = cart;
-        let item = Object.values(tempCart).find((e) => e.id === itemId);
-        delete tempCart[item.id];
-        setCart(tempCart)
-    }
-    const addItem = (item) => {
-        let temp = {};
-        temp = cart;
-        if (cart.hasOwnProperty(item.id)) {
-            item.amount = temp[item.id].amount + 1;
-        } else {
-            item.amount = 1;
+    const { cart, cartAmount, cartTotal, clearCart } = useContext(CartContext);
+
+    const getOrder = () => {
+        const order = {}
+        order.buyer = { name: 'Lucas Saavedra', phone: '+543456620180', email: 'saav15@hotmail.es' };
+        const getItem = (item, quantity) => {
+            return { id: item.id, title: item.title, price: quantity * item.price }
         }
-        temp[item.id] = {
-            ...item
-        };
-        setCart(temp)
-    }
-    const subsItem = (itemId) => {
-        let tempCart = cart;
-        let item = Object.values(tempCart).find((e) => e.id === itemId);
-        tempCart[item.id].amount--;
-        if (tempCart[item.id].amount === 0) {
-            delete tempCart[item.id];
-        }
-        setCart(tempCart)
-    }
-    const clear = () => {
-        setCart({})
+        order.date = firebase.firestore.Timestamp.fromDate(new Date());
+        order.items = cart.map(({ item, quantity }) => getItem(item, quantity))
+        order.total = cartTotal()
+        const db = getFirestore();
+        db.collection('orders').add(order)
+            .then(resp => console.log(resp))
+            .catch(err => console.log(err))
+            .finally(() => { })
     }
 
     return (
-        <>
-            <p>Carrito</p>
-            {/* <div>
-            <div className='d-flex justiy-content-center'>
-                <button className="btn mx-1" onClick={() => clear()}>
-                    Todos
-                    <i className="fa fa-trash"></i>
-                </button>
+        <><div className="container-fluid bg-light" >
+            <div className="row d-flex" >
+                {cartAmount() === 0 ?
+                    <>
+                        <div className="col card-body text-center">
+                            <h1 className="display-5">Su carrito se encuentra vacío</h1>
+                            <NavLink to={'/'}>
+                                <button className="btn btn-primary mx-1">
+                                    <i className="fa fa-home pe-2"></i>
+                                    Volver a MiTienda
+                                </button>
+                            </NavLink>
+                        </div>
+                    </>
+
+                    :
+                    <>
+                        <div className="col-md-8">
+                            <div className='col d-flex justify-content-end py-3'>
+
+                                <button type="button" className="btn btn-primary position-relative" onClick={() => clearCart()}>
+                                    Vaciar carrito
+                                    <i className="fa fa-shopping-cart text-white"></i>
+                                    <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                        <i className="fa fa-trash"></i>
+                                    </span>
+                                </button>
+                            </div>
+                            <div className="col">
+                                {cart.map(({ item, quantity }) =>
+                                    <CartList
+                                        key={item.id}
+                                        {...item}
+                                        quantity={quantity}>
+                                    </CartList>
+                                )
+                                }
+                            </div>
+                        </div>
+                        <div className="sticky-md-top d-flex justify-content-end" style={{ width: '18rem', height: '18rem' }}>
+                            <div className="card">
+                                <div className="card-body">
+                                    <h3> Resumen del pedido</h3>
+                                    <h4>Total: ${cartTotal()}</h4>
+                                    <button className='btn btn-success'>Comprar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </>
+                }
             </div>
-            {Object.values(cart).map(item =>
-                <div key={item.id}>
-                    <p> {item.title}</p>
-                    <div className='d-flex justiy-content-center'>
-                        <button className="btn mr-1" onClick={() => addItem(item)} >
-                            <i className="fa fa-plus" ></i>
-                        </button>
-                        <h4 className="mx-1">{item.amount}</h4>
-                        <button className="btn mx-1" onClick={() => subsItem(item.id)}>
-                            <i className="fa fa-minus" ></i>
-                        </button>
-                        <button className="btn mx-1" onClick={() => removeItem(item.id)} >
-                            <i className="fa fa-trash"></i>
-                        </button>
-                    </div>
-                </div>)}
-        </div> */}
+        </div>
         </>
 
     )

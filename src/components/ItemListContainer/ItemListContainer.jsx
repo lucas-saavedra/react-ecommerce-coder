@@ -1,11 +1,9 @@
 
 import Container from 'react-bootstrap/Container';
 import { useEffect, useState } from 'react'
-import { getProducts } from '../../helpers/getProducts';
 import { useParams } from 'react-router-dom'
 import ItemList from '../ItemList/ItemList';
-
-
+import getFirestore from '../../Firebase/firebase';
 
 
 const ItemListContainer = () => {
@@ -13,15 +11,22 @@ const ItemListContainer = () => {
   const [loading, setLoading] = useState(true)
   const { category } = useParams();
 
+
   useEffect(() => {
-    getProducts // trabajando con las respuestas de la promesa
-      .then(data => {
-        category ? setProducts(data.filter(prod => prod.category === category)) : setProducts(data)//filtro para el ruteo
-      })
+    const limitOfProducts = 20;
+    const db = getFirestore();
+    let products = db.collection('productos');
+    const query = category ? products.where('category', '==', `${category}`) : products
+
+    query.limit(limitOfProducts).get().then((querySnapshot) => {
+      function getProd(doc) {
+        return { id: doc.id, ...doc.data() }
+      }
+      setProducts(querySnapshot.docs.map(getProd));
+    })
       .catch(err => console.log(err))
       .finally(() => setLoading(false))
   }, [category])
-
 
   return (
     <>
@@ -35,7 +40,6 @@ const ItemListContainer = () => {
           <>
             <ItemList products={products} />
           </>
-
         )
         }
       </Container>

@@ -1,12 +1,11 @@
 
 import CartWigdet from '../CartWidget/CartWidget.jsx';
 import Navbar from 'react-bootstrap/Navbar'
-/* import NavDropdown from 'react-bootstrap/NavDropdown' */
 import Container from 'react-bootstrap/Container'
 import Nav from 'react-bootstrap/Nav'
 import { NavLink } from 'react-router-dom/'
 import CategoryListContainer from '../CategoryListContainer/CategoryListContainer';
-import './NavBar.css'
+
 
 export const NavBar = () => {
   return (

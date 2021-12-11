@@ -5,20 +5,9 @@ import { CartContext } from '../../context/CartContext';
 
 const ItemDetail = ({ item }) => {
     const { url, price, title, category, detail, color, stock } = item;
-    const [cart, setCart] = useContext(CartContext);
+    const { addToCart } = useContext(CartContext);
     const addProductCart = (count) => {
-        let temp = {};
-        temp = cart;
-        if (cart.hasOwnProperty(item.id)) {
-            console.log(item.amount)
-            item.amount = temp[item.id].amount + count;
-        } else {
-            item.amount = count;
-        }
-        temp[item.id] = {
-            ...item
-        };
-        setCart(temp)
+        addToCart(item, count)
     }
     return (
         <div className="row pt-3" >

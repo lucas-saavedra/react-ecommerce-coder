@@ -1,39 +1,25 @@
 import { useState, useEffect } from "react";
-import { getProducts } from "../../helpers/getProducts";
 import ItemDetail from "../ItemDetail/ItemDetail";
 import { useParams } from 'react-router-dom'
 import Container from 'react-bootstrap/Container'
-/* const itemMock = {
-    "id": 12,
-    "title": "Nintendo Switch",
-    "price": 60000,
-    "category": "gaming",
-    "color": "negro",
-    "detail": "Lorem ipsum dolor sit amet consecteturLorem ipsum dolor sit amet consectetur",
-    "url": "https://source.unsplash.com/EdUYo2Y435s/800x600",
-    "stock": 5
-}
-const getItems = new Promise((successed, rejected) => {
-    setTimeout(() => {
-        successed(itemMock)
-    }, 3000);
-}) */
+import getFirestore from "../../Firebase/firebase";
+
 const ItemDetailContainer = () => {
     const [item, setItem] = useState({});
     const [loading, setLoading] = useState(true)
     const { id } = useParams();
 
     useEffect(() => {
-        getProducts
-            .then(data => {
-                setItem(data.find(prod => prod.id === Number(id)))
-            })
+        const db = getFirestore();
+        const products = db.collection('productos');
+        const item = products.doc(id);
+        item.get().then((doc) => {
+            setItem({ id: doc.id, ...doc.data() });
+        })
             .catch(err => console.log(err))
             .finally(() => setLoading(false))
-        return () => {
-
-        }
-    }, [id]);
+    }, [id])
+    
     return (
         <div>  {loading ? (
 
