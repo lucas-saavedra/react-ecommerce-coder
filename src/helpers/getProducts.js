@@ -1,7 +1,7 @@
-const productos =
+export const productos =
     [
         {
-            "id": 1,
+           
             "title": "Lampara",
             "price": 3000,
             "category": "iluminacion",
@@ -11,7 +11,7 @@ const productos =
             "stock": 0
         },
         {
-            "id": 2,
+            
             "title": "Ventilador",
             "price": 5000,
             "category": "acondicionamiento",
@@ -21,7 +21,7 @@ const productos =
             "stock": 10
         },
         {
-            "id": 3,
+            
             "title": "Sillon",
             "price": 25000,
             "category": "muebles",
@@ -31,7 +31,7 @@ const productos =
             "stock": 0
         },
         {
-            "id": 4,
+           
             "title": "Mesa de luz",
             "price": 6000,
             "category": "iluminacion",
@@ -41,7 +41,7 @@ const productos =
             "stock": 10
         },
         {
-            "id": 5,
+          
             "title": "Pelota",
             "price": 1000,
             "category": "futbol",
@@ -51,7 +51,7 @@ const productos =
             "stock": 10
         },
         {
-            "id": 6,
+          
             "title": "Anillo de oro",
             "price": 49000,
             "category": "joyeria",
@@ -61,7 +61,7 @@ const productos =
             "stock": 10
         },
         {
-            "id": 7,
+            
             "title": "Taladro inalambrico",
             "price": 10000,
             "category": "hogar",
@@ -71,7 +71,7 @@ const productos =
             "stock": 10
         },
         {
-            "id": 8,
+            
             "title": "Pava electrica",
             "price": 1500,
             "category": "electrodomesticos",
@@ -81,7 +81,7 @@ const productos =
             "stock": 10
         },
         {
-            "id": 9,
+            
             "title": "PS5",
             "price": 40000,
             "category": "gaming",
@@ -91,7 +91,7 @@ const productos =
             "stock": 10
         },
         {
-            "id": 10,
+            
             "title": "Xbox One X",
             "price": 40000,
             "category": "gaming",
@@ -101,7 +101,7 @@ const productos =
             "stock": 5
         },
         {
-            "id": 11,
+           
             "title": "Galaxy S20",
             "price": 80000,
             "category": "smartphones",
@@ -111,7 +111,7 @@ const productos =
             "stock": 5
         },
         {
-            "id": 12,
+           
             "title": "Nintendo Switch",
             "price": 60000,
             "category": "gaming",
@@ -121,9 +121,3 @@ const productos =
             "stock": 5
         }
     ]
-//generando la promesa con el timeout
-export const getProducts = new Promise((successed, rejected) => {
-    setTimeout(() => {
-        successed(productos)
-    }, 3000);
-})

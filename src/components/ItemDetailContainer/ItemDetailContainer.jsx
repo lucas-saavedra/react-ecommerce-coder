@@ -11,7 +11,7 @@ const ItemDetailContainer = () => {
 
     useEffect(() => {
         const db = getFirestore();
-        const products = db.collection('productos');
+        const products = db.collection('products');
         const item = products.doc(id);
         item.get().then((doc) => {
             setItem({ id: doc.id, ...doc.data() });
@@ -19,7 +19,7 @@ const ItemDetailContainer = () => {
             .catch(err => console.log(err))
             .finally(() => setLoading(false))
     }, [id])
-    
+
     return (
         <div>  {loading ? (
 

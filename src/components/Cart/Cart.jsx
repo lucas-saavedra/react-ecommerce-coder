@@ -19,10 +19,14 @@ const Cart = () => {
         order.items = cart.map(({ item, quantity }) => getItem(item, quantity))
         order.total = cartTotal()
         const db = getFirestore();
+
         db.collection('orders').add(order)
             .then(resp => console.log(resp))
             .catch(err => console.log(err))
             .finally(() => { })
+
+
+
     }
 
     return (
@@ -70,7 +74,7 @@ const Cart = () => {
                                 <div className="card-body">
                                     <h3> Resumen del pedido</h3>
                                     <h4>Total: ${cartTotal()}</h4>
-                                    <button className='btn btn-success'>Comprar</button>
+                                    <button className='btn btn-success' >Comprar</button>
                                 </div>
                             </div>
                         </div>

@@ -15,7 +15,7 @@ const ItemListContainer = () => {
   useEffect(() => {
     const limitOfProducts = 20;
     const db = getFirestore();
-    let products = db.collection('productos');
+    let products = db.collection('products');
     const query = category ? products.where('category', '==', `${category}`) : products
 
     query.limit(limitOfProducts).get().then((querySnapshot) => {
