@@ -1,5 +1,5 @@
 # Proyecto Final Coder-House
-### - _Realizado en React Js y hosteado en [Netlify](https://www.netlify.com/)_  
+### - _Realizado en [React Js](https://es.reactjs.org/) y hosteado en [Netlify](https://www.netlify.com/)_
 ### [Click aquí para verlo](https://react-ecommerce-coder-saavedra-lucas.netlify.app/) 
 ### - Incompleto para comercializar.
 
