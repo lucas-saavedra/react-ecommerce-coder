@@ -43,7 +43,7 @@ npm run start
 
 ## Rutas del sitio
 
-| Ruta | Descripción |
+|  Descripción| Ruta |
 | ------ | ------ |
 | Home | / |
 | Lista de productos | / |
