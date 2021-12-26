@@ -1,5 +1,6 @@
 # Proyecto Final Coder-House
-### - _Realizado en React Js_   [Click aquí para verlo](https://react-ecommerce-coder-saavedra-lucas.netlify.app/) 
+### - _Realizado en React Js y hosteado en [Netlify](https://www.netlify.com/)_  
+### [Click aquí para verlo](https://react-ecommerce-coder-saavedra-lucas.netlify.app/) 
 ### - Incompleto para comercializar.
 
 ## Duración
@@ -22,7 +23,8 @@
 - [Font Awesome](https://fontawesome.com/) Lo utilizo para que la aplicación tenga iconos faciles de usar y dinamicos(v5).
 - [Firebase](https://firebase.google.com/)  Es una plataforma en la nube para el desarrollo de aplicaciones web y móvil, lo que utilizo son sus tecnologias de bases de datos en tiempo real (Firestore). Estas se alojan en la nube, son No SQL y almacenan los datos como JSON. Permiten alojar y disponer de los datos e información de la aplicación en tiempo real. (v9.6.0).
 - [react-router-dom](https://reactrouter.com/) - Usado para el sistema de navegacion entre paginas, para que esta funcione como spa (v6.0.2).
-
+## Host / Alojamiento
+- [Netlify](https://www.netlify.com/)- Netlify te permite crear, alojar y mantener tu sitio web o aplicación con implementación continua, HTTPS de 1 solo clic, entre otros.
 ## Instalación
 
 Necesita [node.js](https://nodejs.org/)>= 14.0.0 y [npm](https://www.npmjs.com/) >= 5.6  para funcionar.
