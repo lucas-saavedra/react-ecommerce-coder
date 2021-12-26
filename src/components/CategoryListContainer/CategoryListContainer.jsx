@@ -25,20 +25,20 @@ const CategoryListContainer = () => {
     }, [])
 
     return (
-        <>
-            <NavDropdown bg="dark" variant="dark" title="Categorias" id="collasible-nav-dropdown">
-                {
-                    loading ? (
-                        < NavDropdown.Item >Cargando...
-                        </NavDropdown.Item >) :
-                        (
-                            categories.map((cat, id) =>
-                                <NavDropdown.Item key={id} as={NavLink} className='dropdown-item' style={{ textTransform: 'capitalize' }} to={`/category/${cat}`}>{cat}</NavDropdown.Item>
-                            )
+
+        <NavDropdown bg="dark" variant="dark" title="Categorias" id="collasible-nav-dropdown">
+            {
+                loading ? (
+                    < NavDropdown.Item >Cargando...
+                    </NavDropdown.Item >) :
+                    (
+                        categories.map((cat, id) =>
+                            <NavDropdown.Item key={id} as={NavLink} className='dropdown-item' style={{ textTransform: 'capitalize' }} to={`/category/${cat}`}>{cat}</NavDropdown.Item>
                         )
-                }
-            </NavDropdown>
-        </>
+                    )
+            }
+        </NavDropdown>
+
     )
 }
 

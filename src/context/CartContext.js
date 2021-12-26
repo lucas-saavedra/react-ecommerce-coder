@@ -26,9 +26,11 @@ export const CartProvider = (props) => {
     }
     const cartTotal = () => (cart.map(({ item, quantity }) => item.price * quantity)).reduce(((acc, value) => { return acc + value }), 0)
     const cartAmount = () => (cart.map(({ quantity }) => quantity)).reduce(((acc, value) => { return acc + value }), 0)
-
+    const numberWithDots = (x) => {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    }
     return (
-        <CartContext.Provider value={{ cart, cartAmount, addToCart, cartTotal, removeItem, clearCart }} >
+        <CartContext.Provider value={{ cart, cartAmount, addToCart, cartTotal, removeItem, clearCart, numberWithDots }} >
             {props.children}
         </CartContext.Provider >
     )

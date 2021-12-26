@@ -1,86 +1,74 @@
 import { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { CartContext } from "../../context/CartContext";
-import getFirestore from '../../Firebase/firebase';
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/firestore';
+
 import CartList from "./CartList";
 
 const Cart = () => {
-    const { cart, cartAmount, cartTotal, clearCart } = useContext(CartContext);
-
-    const getOrder = () => {
-        const order = {}
-        order.buyer = { name: 'Lucas Saavedra', phone: '+543456620180', email: 'saav15@hotmail.es' };
-        const getItem = (item, quantity) => {
-            return { id: item.id, title: item.title, price: quantity * item.price }
-        }
-        order.date = firebase.firestore.Timestamp.fromDate(new Date());
-        order.items = cart.map(({ item, quantity }) => getItem(item, quantity))
-        order.total = cartTotal()
-        const db = getFirestore();
-
-        db.collection('orders').add(order)
-            .then(resp => console.log(resp))
-            .catch(err => console.log(err))
-            .finally(() => { })
-
-
-
-    }
-
+    const { cart, cartAmount, cartTotal, clearCart, numberWithDots } = useContext(CartContext);
     return (
-        <><div className="container-fluid bg-light" >
-            <div className="row d-flex" >
-                {cartAmount() === 0 ?
-                    <>
-                        <div className="col card-body text-center">
-                            <h1 className="display-5">Su carrito se encuentra vacío</h1>
-                            <NavLink to={'/'}>
-                                <button className="btn btn-primary mx-1">
-                                    <i className="fa fa-home pe-2"></i>
-                                    Volver a MiTienda
-                                </button>
-                            </NavLink>
-                        </div>
-                    </>
+        <><div className="container" >
 
-                    :
-                    <>
-                        <div className="col-md-8">
-                            <div className='col d-flex justify-content-end py-3'>
+            {cartAmount() === 0 ?
+                <>
+                    <div className="col card-body text-center">
+                        <h1 className="display-5">Su carrito se encuentra vacío</h1>
+                        <NavLink to={'/'}>
+                            <button className="btn btn-primary mx-1">
+                                <i className="fa fa-home pe-2"></i>
+                                Volver a MiTienda
+                            </button>
+                        </NavLink>
+                    </div>
+                </>
 
-                                <button type="button" className="btn btn-primary position-relative" onClick={() => clearCart()}>
-                                    Vaciar carrito
-                                    <i className="fa fa-shopping-cart text-white"></i>
-                                    <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                        <i className="fa fa-trash"></i>
-                                    </span>
-                                </button>
-                            </div>
-                            <div className="col">
-                                {cart.map(({ item, quantity }) =>
-                                    <CartList
-                                        key={item.id}
-                                        {...item}
-                                        quantity={quantity}>
-                                    </CartList>
-                                )
-                                }
-                            </div>
-                        </div>
-                        <div className="sticky-md-top d-flex justify-content-end" style={{ width: '18rem', height: '18rem' }}>
-                            <div className="card">
-                                <div className="card-body">
-                                    <h3> Resumen del pedido</h3>
-                                    <h4>Total: ${cartTotal()}</h4>
-                                    <button className='btn btn-success' >Comprar</button>
+                :
+                <>
+                    <div className="d-flex justify-content-end">
+                        <button type="button" className="btn btn-primary mt-3" onClick={() => clearCart()}>
+                            Vaciar carrito
+                            <i className="fa fa-shopping-cart text-white"></i>
+                        </button>
+                    </div>
+                    <div className='row py-3  d-flex justify-content-center'>
+                        {cart.map(({ item, quantity }) =>
+                            <CartList
+                                key={item.id}
+                                {...item}
+                                quantity={quantity}>
+                            </CartList>
+                        )
+                        }
+                    </div>
+
+                    <div className="row bg-white d-flex justify-content-end mb-3" style={{
+
+                        position: 'sticky',
+                        bottom: 0,
+                        height: '100%'
+                    }}>
+                        <div className=" py-md-3 p-0 " >
+                            <div className="card-body">
+                                <div className="d-flex align-items-center justify-content-between justify-content-md-end">
+                                    <div className="d-flex align-items-center pb-2 ">
+                                        <h4 className="m-0 p-0 ">Total: ${numberWithDots(cartTotal())}</h4>
+                                    </div>
                                 </div>
+                                <NavLink to={'/checkout'} className=' d-grid d-flex align-items-center justify-content-md-end' style={{ textDecoration: 'none' }}>
+                                    <button className="col col-md-3 btn btn-success mx-1 ">
+                                        <p style={{ fontSize: '1.5rem' }} className="display-5 m-1">Continuar compra</p>
+                                    </button>
+                                </NavLink>
                             </div>
                         </div>
-                    </>
-                }
-            </div>
+                    </div>
+
+
+                </>
+            }
+
+
+
         </div>
         </>
 

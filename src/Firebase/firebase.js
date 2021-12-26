@@ -15,8 +15,8 @@ const firebaseConfig = {
     storageBucket: "react-ecommerce-bd-coderhouse.appspot.com",
     messagingSenderId: "558326552478",
     appId: "1:558326552478:web:14b37e1897d32c8a6ee88f",
-    measurementId: "${config.measurementId}"
-};
+    measurementId: "G-0H95KQREZ6"
+  };
 
 // Initialize Firebase
 const app = firebase.initializeApp(firebaseConfig);

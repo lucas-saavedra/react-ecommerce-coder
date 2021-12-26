@@ -11,8 +11,8 @@ const CartWigdet = () => {
                 <NavLink to={'/cart'}>
                     <div className='col d-flex justify-content-end py-2'>
                         <button type="button" className="btn position-relative">
-                            <i className="fa fa-shopping-cart text-white fa-2x"></i>
-                            <span className="h4 position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                            <i className="fa fa-shopping-cart text-white  fa-2x"></i>
+                            <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                                 {cartAmount()}
                             </span>
                         </button>

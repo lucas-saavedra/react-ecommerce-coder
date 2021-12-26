@@ -29,7 +29,6 @@ const ItemCount = ({ stock, addProductCart }) => {
                             <button className="btn btn-warning mx-1">
                                 <i className="fa fa-home pe-2"></i>
                                 ¡Sin stock! Volver al inicio.
-
                             </button>
                         </NavLink>
                     </>
@@ -37,14 +36,16 @@ const ItemCount = ({ stock, addProductCart }) => {
                     :
                     change === false ? (
                         <>
-                            <button className="btn mr-1" onClick={addProdAmount} >
-                                <i className="fa fa-plus"></i>
-                            </button>
-                            <h4 className="mx-1">{count}</h4>
-                            <button className="btn mx-1" onClick={substractProdAmount}>
-                                <i className="fa fa-minus"></i>
-                            </button>
-                            <button className="btn btn-success mx-1" onClick={() => OnAdd()}>
+                            <div className="d-flex py-1 justify-content-between align-items-center">
+                                <button className="btn mr-1 btn-lg" onClick={addProdAmount} >
+                                    <i className="fa fa-plus"></i>
+                                </button>
+                                <h3 className="mx-1 ">{count}</h3>
+                                <button className="btn mx-1 btn-lg" onClick={substractProdAmount}>
+                                    <i className="fa fa-minus fa-1x"></i>
+                                </button>
+                            </div>
+                            <button className="btn btn-success" onClick={() => OnAdd()}>
                                 Agregar
                             </button>
                         </>)
